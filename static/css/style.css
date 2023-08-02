@@ -3,23 +3,39 @@
 body{
     font-family: 'Poppins';
 }
+body{
+    background-color: rgb(253, 215, 165) !important;
+}
+h3{
+    text-decoration: double;
+}
+h1{
+    text-decoration:double;
+}
 .nav-link{
     text-decoration: none;
-    color: white;
+    background-color: antiquewhite;
     font-weight: 400;
 }
 .nav-link:hover{
-    color: orange;
+    color: rgb(193, 157, 229);
 }
 .nav-item{
     padding-right: 52px;
     margin-left: -20px;
+    background-color: rgb(207, 157, 157);
 }
 .navbar{
-    background-color: black;
+    background-color: rgb(226, 166, 166);
 }
+
+.navbar-brand img.icono {
+    width: 10px;
+    height: 10px;
+}
+
 .active{
-    color: orange !important;
+    color: rgb(200, 165, 243) !important;
 }
 
 /* PREPROCESSING */
@@ -31,10 +47,10 @@ body{
     font-weight: 700;
 }
 .box__info{
-    border: solid black;
-    border-radius: 10px;
-    width: 550px;
-    height: 120px;
+    border: solid rgb(233, 213, 213);
+    border-radius: 5px;
+    width: 400px;
+    height: 100px;
     margin-top: -10px;
 }
 .box__info p{
@@ -47,8 +63,8 @@ body{
     font-weight: 700;
 }
 .box__attributes{
-    border: solid black;
-    border-radius: 10px;
+    /* border: solid black;
+    border-radius: 10px; */
     width: 550px;
     height: 200px;
     margin-top: -10px;
@@ -97,9 +113,10 @@ body{
 .select{
     margin-top: 5px;
 }
+
 .box__detail{
-    border: solid black;
-    border-radius: 10px;
+    /* border-color: solid rgb(207, 161, 161) !important; */
+    border-color: antiquewhite !important;
     width: 550px;
     height: 250px;
     margin-top: -10px;
@@ -112,14 +129,14 @@ body{
 
 .selectedTable > tbody > tr:hover > td,
 .selectedTable > tbody > tr:hover > th {
-    background-color: rgb(107, 107, 107);
+    background-color: rgb(201, 177, 177);
     color: white;
 }
 
 .scroll{
     height: 235px;
     overflow-y: scroll;
-    width: 535px;
+    width: 300px;
 }
 .scrollAblee{
     height: 280px;
@@ -152,7 +169,7 @@ body{
     margin-top: 10px;
 }
 .box__option{
-    border: solid black;
+    border: solid rgb(214, 196, 196);
     border-radius: 10px;
     width: 360px;
     height: 120px;
@@ -162,7 +179,7 @@ body{
     font-weight: 700;
 }
 .box__results{
-    border: solid black;
+    border: solid rgb(221, 187, 187);
     border-radius: 10px;
     width: 735px;
     height: 400px;
@@ -187,7 +204,7 @@ body{
     font-weight: 700;
 }
 .box__models{
-    border: solid black;
+    border: solid rgb(235, 207, 207);
     border-radius: 10px;
     width: 360px;
     height: 250px;
@@ -201,8 +218,9 @@ body{
     width: 750px;
 }
 .start{
-    float: right;
+ float: left;
 }
+
 .box__option>.form-check{
     padding-left: 40px;
     padding-top: 12px;
@@ -235,6 +253,8 @@ span{
 }
 /* END CLASSIFICATION */
 
+
+
 /* CLUSTERING */
 #cluster_btn{
     margin-top: -38px !important;
@@ -248,8 +268,8 @@ span{
     overflow-y: scroll;
 }
 .box__result{
-    border: solid black;
-    border-radius: 10px;
+    /* border: solid black; */
+    /* border-radius: 10px; */
     width: 735px;
     height: 400px;
     margin-top: -10px;

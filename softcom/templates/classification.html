@@ -13,8 +13,8 @@
                   {% csrf_token %}
                   <select onchange="this.form.submit()" name="method" class="form-select" id="inputMethod">
                     <option>Choose...</option>
-                    <option {% if method == '1' %} selected {% endif %} value="1">K-Nearest Neighbors</option>
-                    <option {% if method == '2' %} selected {% endif %} value="2">Naive Bayes</option>
+                    <option {% if method = '1' %} selected {% endif %} value="1">K-Nearest Neighbors</option>
+                    <option {% if method = '2' %} selected {% endif %} value="2">Naive Bayes</option>
                   </select>
                 </div>
               </form>
@@ -100,7 +100,7 @@
                         <option>Select output data</option>
                         {% if headers %}
                           {% for header in headers %}
-                            <option value="{{ header }}" {% if header == output %} selected {% endif %}>{{ header }}</option>
+                            <option value="{{ header }}" {% if header = output %} selected {% endif %}>{{ header }}</option>
                           {% endfor %}
                         {% endif %}
                       </select>

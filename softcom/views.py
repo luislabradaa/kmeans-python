@@ -174,6 +174,73 @@ def classification(request):
         return redirect('preprocessing')
     return render(request, 'classification.html', data)
 
+
+# **************************************** ENTRENAMIENTO DEL ALGORITMO K-MEANS *********************************** s
+# def clustering(request):
+#     rows = request.session['rows']
+#     name = request.session['name']
+#     df = request.session['df']
+#     df = pd.read_json(df)
+#     print(df)
+#     features = request.session['drop']
+#     print(features)
+#     nilai_x = features[0]
+#     nilai_y = features[1]
+#     if request.method == 'POST' and request.POST['nilai_k']:
+#         k = request.POST['nilai_k']
+#         nilai_k = int(k)
+
+#         x_array = np.array(df.iloc[:, 3:5])
+
+#         scaler = MinMaxScaler()
+#         x_scaled = scaler.fit_transform(x_array)
+
+#         # Menentukan dan mengkonfigurasi fungsi kmeans
+#         kmeans = KMeans(n_clusters = nilai_k)
+#         # Menentukan kluster dari data
+#         kmeans.fit(x_scaled)
+
+#         # Menambahkan kolom "kluster" dalam data frame
+#         df['cluster'] = kmeans.labels_
+#         cluster = df['cluster'].value_counts()
+#         clusters = cluster.to_dict()
+#         sort_cluster = []
+#         label = []
+#         for i in sorted(clusters):
+#             sort_cluster.append(clusters[i])
+#             label.append(i)
+#         #GRAFICO
+#         fig, ax = plt.subplots()
+#         sct = ax.scatter(x_scaled[:,1], x_scaled[:,0], s = 200, c = df.cluster)
+#         legend1 = ax.legend(*sct.legend_elements(),loc="lower left", title="Signos")
+#         ax.add_artist(legend1)
+#         centers = kmeans.cluster_centers_
+#         ax.scatter(centers[:,1], centers[:,0], c='red', s=200)
+#         plt.title("RESULTADO")
+#         plt.xlabel(nilai_x)
+#         plt.ylabel(nilai_y)
+#         graph = get_graph()
+
+#         if name:
+#             data = {
+#                 "name": name,
+#                 "clusters": sort_cluster,
+#                 "rows": rows,
+#                 "features": features,
+#                 "label": label,
+#                 "chart": graph,
+#             }
+#     else:
+#         data = {
+#             "name": '',
+#         }
+
+#     return render(request, 'clustering.html', data) 
+
+
+
+
+# **************************************** ENTRENAMIENTO DEL ALGORITMO K-MEANS *********************************** s
 def clustering(request):
     rows = request.session['rows']
     name = request.session['name']
@@ -193,12 +260,19 @@ def clustering(request):
         scaler = MinMaxScaler()
         x_scaled = scaler.fit_transform(x_array)
 
-        # Menentukan dan mengkonfigurasi fungsi kmeans
+        #  Esto prepara el algoritmo K-Means para agrupar los datos
         kmeans = KMeans(n_clusters = nilai_k)
-        # Menentukan kluster dari data
+        # Se aplica el algoritmo K-Means a los datos escalados x_scaled para encontrar los centroides de los clústeres y asignar cada punto de datos a un clúster.
         kmeans.fit(x_scaled)
 
-        # Menambahkan kolom "kluster" dalam data frame
+        #Variable para clasificar en que cluster va a ir
+        k=kmeans.labels_
+        print(k)
+
+            # /DEFINIR EL ARREGLO DE SIGNOS EN ESTE CASO 8 CLUSTERS 
+        signos=['Aries', 'Escorpio', 'Tauro', 'Libra', 'Geminis', 'Cancer', 'Leo', 'Virgo']
+       
+        # clustering de datos mediante el algoritmo K-Means, asigna etiquetas de clúster a cada punto de datos en el DataFrame
         df['cluster'] = kmeans.labels_
         cluster = df['cluster'].value_counts()
         clusters = cluster.to_dict()
@@ -207,14 +281,15 @@ def clustering(request):
         for i in sorted(clusters):
             sort_cluster.append(clusters[i])
             label.append(i)
-        
+
+        # Resultado en grafico 
         fig, ax = plt.subplots()
         sct = ax.scatter(x_scaled[:,1], x_scaled[:,0], s = 200, c = df.cluster)
-        legend1 = ax.legend(*sct.legend_elements(),loc="lower left", title="Clusters")
+        legend1 = ax.legend(*sct.legend_elements(),loc="lower left", title="Signos")
         ax.add_artist(legend1)
         centers = kmeans.cluster_centers_
         ax.scatter(centers[:,1], centers[:,0], c='red', s=200)
-        plt.title("Clustering K-Means Results")
+        plt.title("Resultado Clusterización")
         plt.xlabel(nilai_x)
         plt.ylabel(nilai_y)
         graph = get_graph()
@@ -222,11 +297,12 @@ def clustering(request):
         if name:
             data = {
                 "name": name,
-                "clusters": sort_cluster,
+                "clusters": zip(signos, sort_cluster),
                 "rows": rows,
                 "features": features,
                 "label": label,
                 "chart": graph,
+                # "signo":signos,
             }
     else:
         data = {
@@ -234,6 +310,7 @@ def clustering(request):
         }
 
     return render(request, 'clustering.html', data) 
+
 
 def get_graph():
     buffer = BytesIO()
@@ -245,6 +322,7 @@ def get_graph():
     buffer.close()
     return graph
 
+#OTHER CODE
 def naiveBayes(df, features, options, size, fold, outputs):
     # Variabel independen
     fitur = features
